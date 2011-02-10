@@ -1,60 +1,45 @@
 #!/usr/bin/env python
 
-def system(cmd, is_verbose=True):
-    import commands
-    import sys
-    import os
-    print cmd
-    if is_verbose:
-        if os.system(cmd):
-            print "Error: Couldn't run command: %s" % (cmd)
-            sys.exit(1)
-    else:
-        (status, output) = commands.getstatusoutput(cmd)
-        if status:
-            print output
-            print "Error: Couldn't run command: %s" % (cmd)
-            sys.exit(1)
+from builder import Builder
+
+module_name='ckan'
+builder_name='ckan-sqlite'
+db_name=None,
+ve_dir='/home/buildslave/ve/bin/'
+build_dir='/home/buildslave/okfn/full/build/'
+pyenv_dir=os.path.join(build_dir, builder_name, 'pyenv')
+src_dir=os.path.join(pyenv_dir, 'src')
+ckan_repo='https://bitbucket.org/okfn/ckan/raw'
+
+b = Builder(module_name=module_name,
+            builder_name=builder_name,
+            db_name=db_name,
+            ve_dir=ve_dir,
+            build_dir=build_dir,
+            pyenv_dir=pyenv_dir,
+            src_dir=src_dir,
+            ckan_repo=ckan_repo,
+            )
 
 import os
 cwd = os.getcwd()
-assert cwd == '/home/buildslave/okfn/full/build'
+assert cwd == build_dir
 
-print "\n### Emptying database..."
-cmd = "/home/buildslave/drop-all-tables.sh buildandsmoke buildslave localhost"
-system(cmd)
+b.run('Emptying database...', 
+      '/home/buildslave/drop-all-tables.sh %(db_name)s buildslave localhost')
 
-print "\n### Emptying build folder..."
-cmd = "rm -rf /home/buildslave/okfn/full/build/*"
-system(cmd)
+assert build_dir.startswith('/home/buildslave/okfn/full/build') # double check
+b.run('Emptying build folder...',
+      'rm -rf %(build_dir)s/*')
 
-print "\n### Getting fabfile from..."
-cmd = 'wget -O fabfile.py https://bitbucket.org/okfn/ckan/raw/default/fabfile.py'
-system(cmd)
+b.run('Getting fabfile from...',
+      'wget -O fabfile.py %(ckan_repo)s/default/fabfile.py')
 
-print "\n### Running fabfile..."
-cmd = ". /home/buildslave/ve/bin/activate; /home/buildslave/ve/bin/fab config_local:/home/buildslave/okfn/full/build/,buildandsmoke,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True deploy"
-system(cmd)
+b.run('Running fabfile...',
+      '. %(ve_dir)s/bin/activate && %(ve_dir)s/bin/fab config_local:%(build_dir)s,%(builder_name)s,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True deploy')
 
-print "\n### Copying config for running nosetests..."
-cmd = "cp /home/buildslave/okfn/full/build/buildandsmoke/buildandsmoke.ini /home/buildslave/okfn/full/build/buildandsmoke/pyenv/src/ckan/development.ini"
-system(cmd)
-#cmd = "mkdir /home/buildslave/okfn/full/build/buildandsmoke/pyenv/src/ckan/data || echo ''"
-#system(cmd)
-#cmd = "touch /home/buildslave/okfn/full/build/buildandsmoke/pyenv/src/ckan/data/who_log.ini"
-#system(cmd)
+b.run('Copying config for running nosetests...',
+      'cp %(build_dir)s%(build_name)s/%(build_name)s.ini %(src_dir)s/ckan/development.ini')
 
-print "\n### Quick tests..."
-cmd = ". /home/buildslave/okfn/full/build/buildandsmoke/pyenv/bin/activate; /home/buildslave/okfn/full/build/buildandsmoke/pyenv/bin/nosetests -v /home/buildslave/okfn/full/build/buildandsmoke/pyenv/src/ckan/ckan/tests/ --ckan --with-pylons=/home/buildslave/okfn/full/build/buildandsmoke/pyenv/src/ckan/test.ini"
-system(cmd)
-
-#print "Preparing for full tests..."
-#cmd = "sed -i 's/\(faster_db_test_hacks.*\)/#\1/g' /home/buildslave/okfn/full/build/buildandsmoke/pyenv/src/ckan/test.ini"
-#system(cmd)
-#cmd = "sed -i 's/\(sqlalchemy.url.*\)/#\1/g' /home/buildslave/okfn/full/build/buildandsmoke/pyenv/src/ckan/test.ini"
-#system(cmd)
-
-#print "\n### Full tests..."
-#cmd = ". /home/buildslave/okfn/full/build/buildandsmoke/pyenv/bin/activate; /home/buildslave/okfn/full/build/buildandsmoke/pyenv/bin/nosetests -v --with-coverage --cover-package=ckan. /home/buildslave/okfn/full/build/buildandsmoke/pyenv/src/ckan/ckan/tests/ --ckan --with-pylons=/home/buildslave/okfn/full/build/buildandsmoke/pyenv/src/ckan/test-core.ini"
-#system(cmd)
-
+b.run('Quick tests...',
+      '. %(pyenv_dir)s/bin/activate; %(pyenv_dir)s/bin/nosetests -v %(src_dir)s/ckan/ckan/tests/ --ckan --with-pylons=%(src_dir)s/ckan/test.ini')
