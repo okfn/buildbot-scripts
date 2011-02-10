@@ -1,0 +1,12 @@
+syntax: glob
+# generic
+*.pyc
+*.swp
+*.swo
+.*
+
+# specific
+build/*
+ve/*
+ons_data/*
+okfn/*

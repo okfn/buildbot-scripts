@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Test CKAN repository..."
+echo "Warning: Nothing happens yet."
+exit 0
