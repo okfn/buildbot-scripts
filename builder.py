@@ -7,7 +7,7 @@ class Builder(object):
                  **env):
         self.env = env
 
-    def run(msg, cmd, is_verbose=True):
+    def run(self, msg, cmd, is_verbose=True):
         print '\n### %s' % msg
         cmd = cmd % self.env
         print cmd
