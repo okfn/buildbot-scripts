@@ -11,3 +11,4 @@ ve/*
 ons_data/*
 okfn/*
 old_scripts/*
+pip_cache/*
