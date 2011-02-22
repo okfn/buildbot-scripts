@@ -17,7 +17,8 @@ def system(cmd, is_verbose=True):
             sys.exit(1)
 pyenv = 'ckan-dgu-buildandsmoke/pyenv'
 cmds = [
-#('Installing ckanclient code', '%s/bin/pip -E %s install -e hg+http://bitbucket.org/okfn/ckanclient#egg=ckanclient' % (pyenv, pyenv)),
+('Removing old ckanclient code', 'rm %s/src/ckanclient -rf' % pyenv),
+('Installing ckanclient code (latest)', '%s/bin/pip -E %s install -e hg+http://bitbucket.org/okfn/ckanclient#egg=ckanclient' % (pyenv, pyenv)),
 ('Running ckanclient tests', '. %s/bin/activate && nosetests -v %s/src/ckanclient/ckanclient/tests/ --ckan --with-pylons=%s/src/ckanclient/test.ini' % (pyenv, pyenv, pyenv)),
 ]
 
