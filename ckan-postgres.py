@@ -23,7 +23,10 @@ b = Builder(module_name=module_name,
 cwd = os.getcwd()
 assert cwd == build_dir
 
+
+b.run('Migration tests...',
+      '. %(pyenv_dir)s/bin/activate; %(pyenv_dir)s/bin/nosetests -v %(src_dir)s/ckan/ckan/tests/ --ckan --ckan-migration --with-pylons=%(src_dir)s/ckan/test-core.ini')
+
 b.run('Full tests using postgres...',
       '. %(pyenv_dir)s/bin/activate; %(pyenv_dir)s/bin/nosetests -v %(src_dir)s/ckan/ckan/tests/ --ckan --with-pylons=%(src_dir)s/ckan/test-core.ini')
-
 
