@@ -36,7 +36,7 @@ b.run('Getting fabfile from...',
       'wget -O fabfile.py %(ckan_repo)s/default/fabfile.py')
 
 b.run('Running fabfile...',
-      '. %(ve_dir)s/activate && %(ve_dir)s/fab config_local:%(build_dir)s,%(ckan_instance_name)s,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True,pip_requirements="pip-requirements-prerelease.txt" deploy')
+      '. %(ve_dir)s/activate && %(ve_dir)s/fab config_local:%(build_dir)s,%(ckan_instance_name)s,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True,revision=ckan-1.3 deploy')
 
 #b.run('Switching to ckan branch %r...' % branch,
 #      '%(ve_dir)s/pip -E %(pyenv_dir)s install -I -e  hg+https://bitbucket.org/okfn/ckan@%(branch)s#egg=ckan')

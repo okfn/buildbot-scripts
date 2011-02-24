@@ -38,7 +38,7 @@ cmd = 'wget -O fabfile.py https://bitbucket.org/okfn/ckan/raw/default/fabfile.py
 system(cmd)
 
 print "Deploying ckan with fabfile..."
-cmd = "%s/fab config_local:%s,%s,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True,pip_requirements=pip-requirements-stable.txt deploy" % (ve_bin_dir, build_dir, deploy_name)
+cmd = "%s/fab config_local:%s,%s,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True,revision=stable deploy" % (ve_bin_dir, build_dir, deploy_name)
 system(cmd)
 
 print "Installing config..."
@@ -46,7 +46,7 @@ cmd = "cp %s/%s/%s.ini %s/ckan/development.ini" % (build_dir, deploy_name, deplo
 system(cmd)
 
 print "Starting test suite... (please wait)"
-cmd = ". %s/bin/activate; nosetests -v %s/ckan/ckan/tests/" % (pyenv_dir, src_dir)
+cmd = ". %s/bin/activate; nosetests -v --ckan --with-pylons %s/ckan/test.ini %s/ckan/ckan/tests/" % (pyenv_dir, src_dir, src_dir)
 system(cmd)
 
 

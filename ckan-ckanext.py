@@ -24,7 +24,7 @@ cmds = [
 ('Emptying database', '/home/buildslave/drop-all-tables.sh ckan-dgu-buildandsmoke buildslave localhost'),
 ('Emptying build folder', 'rm -rf /home/buildslave/okfn/dgu/build/*'),
 ('Getting CKAN fabfile', 'wget -O fabfile.py https://bitbucket.org/okfn/ckan/raw/default/fabfile.py'),
-('Installing CKAN with fabfile', '/home/buildslave/ve/bin/fab config_local:%s,ckan-dgu-buildandsmoke,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True deploy' % build_dir),
+('Installing CKAN with fabfile', '/home/buildslave/ve/bin/fab config_local:%s,ckan-dgu-buildandsmoke,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True,revision=default deploy' % build_dir),
 ('Copy config to development.ini for tests', 'cp ckan-dgu-buildandsmoke/ckan-dgu-buildandsmoke.ini %s/src/ckan/development.ini' % pyenv),
 #('Installing dgu code', '%s/bin/pip -E %s install -e hg+https://knowledgeforge.net/ckan/dgu#egg=dgu' % (pyenv, pyenv)),
 ('Installing ckanext code', '%s/bin/pip -E %s install -e hg+http://bitbucket.org/okfn/ckanext#egg=ckanext' % (pyenv, pyenv)),
@@ -32,7 +32,8 @@ cmds = [
 #('Unlinking release of ckanclient', '%s/bin/pip -E %s uninstall ckanclient --yes' % (pyenv, pyenv)),
 #('Wiping release of ckanclient', 'rm -rf /home/buildslave/okfn/dgu/build/%s/src/ckanclient' % pyenv),
 #('Installing newest ckanclient code', '%s/bin/pip -E %s install -e hg+https://knowledgeforge.net/ckan/ckanclient#egg=ckanclient' % (pyenv, pyenv)),
-('Running ckanext tests', '%s/bin/nosetests -v %s/src/ckanext/ckanext/tests/ --ckan --with-pylons=%s/src/ckan/test.ini' % (pyenv, pyenv, pyenv)),
+('Running ckanext tests on Sqlite', '%s/bin/nosetests -v %s/src/ckanext/ckanext/tests/ --ckan --with-pylons=%s/src/ckan/test.ini' % (pyenv, pyenv, pyenv)),
+('Running ckanext tests', '%s/bin/nosetests -v %s/src/ckanext/ckanext/tests/ --ckan --with-pylons=%s/src/ckan/test-core.ini' % (pyenv, pyenv, pyenv)),
 #('Running dgu tests', '%s/bin/nosetests -q --nologcapture %s/src/dgu/ckanext/dgu/tests/' % (pyenv, pyenv)),
 ]
 

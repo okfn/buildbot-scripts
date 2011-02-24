@@ -34,7 +34,7 @@ b.run('Getting fabfile from...',
       'wget -O fabfile.py %(ckan_repo)s/default/fabfile.py')
 
 b.run('Running fabfile...',
-      '. %(ve_dir)s/activate && %(ve_dir)s/fab config_local:%(build_dir)s,%(ckan_instance_name)s,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True deploy')
+      '. %(ve_dir)s/activate && %(ve_dir)s/fab config_local:%(build_dir)s,%(ckan_instance_name)s,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True,revision=default deploy')
 
 b.run('Versions of code...',
       '%(ve_dir)s/pip -E %(pyenv_dir)s freeze')

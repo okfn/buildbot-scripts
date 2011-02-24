@@ -29,7 +29,8 @@ cmds = [
 #('Wiping release of ckanclient', 'rm -rf /home/buildslave/okfn/dgu/build/%s/src/ckanclient' % pyenv),
 #('Installing newest ckanclient code', '%s/bin/pip -E %s install -e hg+https://knowledgeforge.net/ckan/ckanclient#egg=ckanclient' % (pyenv, pyenv)),
 #('Running ckanext tests', '%s/bin/nosetests -q --nologcapture %s/src/ckanext/ckanext/tests/' % (pyenv, pyenv)),
-('Running dgu tests', '. %s/bin/activate && nosetests -v %s/src/ckanext-dgu/ckanext/dgu/tests/ --ckan --with-pylons=%s/src/ckanext-dgu/test.ini' % (pyenv, pyenv, pyenv)),
+('Running dgu tests on Sqlite', '. %s/bin/activate && nosetests -v %s/src/ckanext-dgu/ckanext/dgu/tests/ --ckan --with-pylons=%s/src/ckanext-dgu/test.ini' % (pyenv, pyenv, pyenv)),
+('Running dgu tests on Postgres', '. %s/bin/activate && nosetests -v %s/src/ckanext-dgu/ckanext/dgu/tests/ --ckan --with-pylons=%s/src/ckanext-dgu/test-core.ini' % (pyenv, pyenv, pyenv)),
 ]
 
 for info, cmd in cmds:
