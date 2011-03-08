@@ -4,7 +4,7 @@ from builder import Builder
 import os
 
 module_name='ckan'
-branch='ckan-1.3'
+revision='release-v1.3.2'
 ckan_instance_name='buildandsmoke'
 ve_dir='/home/buildslave/ve/bin'
 build_dir='/home/buildslave/okfn/full/build'
@@ -13,7 +13,7 @@ src_dir=os.path.join(pyenv_dir, 'src')
 ckan_repo='https://bitbucket.org/okfn/ckan/raw'
 
 b = Builder(module_name=module_name,
-            branch=branch,
+            revision=revision,
             ckan_instance_name=ckan_instance_name,
             ve_dir=ve_dir,
             build_dir=build_dir,
@@ -36,7 +36,7 @@ b.run('Getting fabfile from...',
       'wget -O fabfile.py %(ckan_repo)s/default/fabfile.py')
 
 b.run('Running fabfile...',
-      '. %(ve_dir)s/activate && %(ve_dir)s/fab config_local:%(build_dir)s,%(ckan_instance_name)s,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True,revision=ckan-1.3 deploy')
+      '. %(ve_dir)s/activate && %(ve_dir)s/fab config_local:%(build_dir)s,%(ckan_instance_name)s,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True,revision=%(revision)s deploy')
 
 #b.run('Switching to ckan branch %r...' % branch,
 #      '%(ve_dir)s/pip -E %(pyenv_dir)s install -I -e  hg+https://bitbucket.org/okfn/ckan@%(branch)s#egg=ckan')
