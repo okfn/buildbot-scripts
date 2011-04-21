@@ -3,12 +3,9 @@
 from builder_ckan import builder as b
 
 # Find the latest release branch
-from mercurial import ui, hg
-#repo = hg.repository(ui.ui(), '%(src_dir)s/ckan' % b.env)
-repo = hg.repository(ui.ui(), 'https://bitbucket.org/okfn/ckan')
-latest_release_branch = sorted([branch for branch in repo.branchmap() if branch.startswith('release-')])[-1]
-print '## RELEASE BRANCH: %s\n' % latest_release_branch
-b.env['revision'] = latest_release_branch
+# Find the previous release branch
+b.env['revision'] = b.get_release_branches()[-1]
+print '\n## Revision: %(revision)s' % b.env
 
 b.run('Emptying database...', 
       '/home/buildslave/drop-all-tables.sh %(ckan_instance_name)s buildslave localhost')
@@ -18,10 +15,12 @@ b.run('Emptying build folder...',
       'rm -rf %(build_dir)s/*')
 
 b.run('Getting fabfile from...',
-      'wget -O fabfile.py %(ckan_repo)s/default/fabfile.py')
+      'wget -O fabfile.py %(ckan_repo_files)s/default/fabfile.py')
 
 b.run('Running fabfile...',
       'fab config_local:%(build_dir)s,%(ckan_instance_name)s,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True,revision=%(revision)s deploy')
+
+b.assert_ckan_branch()
 
 b.run('Copying config for running nosetests...',
       'cp %(build_dir)s/%(ckan_instance_name)s/%(ckan_instance_name)s.ini %(src_dir)s/ckan/development.ini')

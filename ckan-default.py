@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from builder_ckan import builder as b
+b.env['revision'] = 'default'
 
 b.run('Emptying database...', 
       '/home/buildslave/drop-all-tables.sh %(ckan_instance_name)s buildslave localhost')
@@ -10,10 +11,12 @@ b.run('Emptying build folder...',
       'rm -rf %(build_dir)s/*')
 
 b.run('Getting fabfile from...',
-      'wget -O fabfile.py %(ckan_repo)s/default/fabfile.py')
+      'wget -O fabfile.py %(ckan_repo_files)s/default/fabfile.py')
 
 b.run('Running fabfile...',
-      'fab config_local:%(build_dir)s,%(ckan_instance_name)s,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True,revision=default deploy')
+      'fab config_local:%(build_dir)s,%(ckan_instance_name)s,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True,revision=%(revision)s deploy')
+
+b.assert_ckan_branch()
 
 # Doesn't work - problem with subversion repo format.
 #b.run('Versions of code...',
