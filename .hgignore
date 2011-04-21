@@ -10,5 +10,10 @@ build/*
 ve/*
 ons_data/*
 okfn/*
+ckan/*
+dgu/*
 old_scripts/*
 pip_cache/*
+info/*
+*.tac
+twistd.*
