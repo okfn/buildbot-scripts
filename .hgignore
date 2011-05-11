@@ -15,5 +15,7 @@ dgu/*
 old_scripts/*
 pip_cache/*
 info/*
+pyenv-tools/*
 *.tac
 twistd.*
+pip-log.txt

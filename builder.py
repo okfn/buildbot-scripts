@@ -24,3 +24,4 @@ class Builder(object):
                 print output
                 print "Error: Couldn't run command: %s" % (cmd)
                 sys.exit(1)
+            return output
