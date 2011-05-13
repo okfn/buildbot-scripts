@@ -19,3 +19,4 @@ pyenv-tools/*
 *.tac
 twistd.*
 pip-log.txt
+Vms

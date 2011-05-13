@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sys
+import os
 
 from builder_deb import builder as b
 b.env['revision'] = 'default'
@@ -61,6 +62,7 @@ for sub_dir in conflict_dirs:
     if os.path.isdir(rel_dir):
         build_num = b.get_build_number(rel_dir)
         assert build_num, rel_dir
+        print 'Build number %r: %i' % (sub_dir, build_num)
         overall_build_num += build_num
 b.env['ckan_deps_build_number'] = overall_build_num
 
