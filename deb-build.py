@@ -54,17 +54,8 @@ b.run('Conflict - get dependency source',
 b.run('Conflict - rename ckan_deps to ckan-deps',
       'mv conflict/src/ckan_deps conflict/src/ckan-deps')
 
-deps_dir = 'conflict/src/ckan-deps'
-conflict_dirs = os.listdir(deps_dir)
-overall_build_num = 0
-for sub_dir in conflict_dirs:
-    rel_dir = os.path.join(deps_dir, sub_dir)
-    if os.path.isdir(rel_dir):
-        build_num = b.get_build_number(rel_dir)
-        assert build_num, rel_dir
-        print 'Build number %r: %i' % (sub_dir, build_num)
-        overall_build_num += build_num
-b.env['ckan_deps_build_number'] = overall_build_num
+deps_dir = 'conflict/src'
+b.env['ckan_deps_build_number'] = b.get_build_number(deps_dir)
 
 b.run('Conflict - create python-ckan-deps package',
       'cd conflict; ~/pyenv-tools/bin/python -m buildkit.deb . ckan-deps 0.1~%(ckan_deps_build_number)s+lucid http://ckan.org')
@@ -80,6 +71,10 @@ b.run('python-ckanext-dgu - get lib dependencies',
 
 b.run('python-ckanext-dgu - create deb packages',
       'cd python-ckanext-dgu; ~/pyenv-tools/bin/python -m buildkit.update_all .')
+
+sys.path.append('python-ckanext-dgu/src/ckanext-dgu')
+import ckanext.dgu
+b.env['ckanext_dgu_version'] = ckanext.dgu.__version__
 
 b.run('ckan - get ckan-debs-public repo',
       'hg clone https://bitbucket.org/okfn/ckan-debs-public')
