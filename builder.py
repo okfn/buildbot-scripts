@@ -8,7 +8,7 @@ class Builder(object):
         self.env = env
 
     def print_title(self, msg):
-        print '\n### %s' % msg
+        print '\n### %s' % (msg % self.env)
 
     def run(self, msg, cmd, is_verbose=True):
         self.print_title(msg)
