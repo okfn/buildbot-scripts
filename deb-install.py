@@ -19,6 +19,6 @@ b.run('Setup vm',
 b.run('Install CKAN',
       'fab -f ~/vm-fabfile.py -H %(vm_user)s@%(vm_ip)s -p %(vm_password)s install_ckan')
 
-b.run('Stop vm',
-      '%(vm_dir)s/stop-kvm.sh')
+#b.run('Stop vm',
+#      '%(vm_dir)s/stop-kvm.sh')
 

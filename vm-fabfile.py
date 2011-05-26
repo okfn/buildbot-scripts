@@ -12,4 +12,4 @@ def setup_vm():
 
 def install_ckan():
     sudo("apt-get update")
-    sudo("apt-get install ckan")
+    sudo("apt-get -y --force-yes install ckan")

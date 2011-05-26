@@ -26,11 +26,16 @@ present = b.run('Assemble list of present packages',
              r"sed '/\s*#/d;s/==.*//g' python-ckan/src/ckan/requires/lucid_present.txt | sed ':a;N;$!ba; s/\n/ /g'",
              is_verbose=False)
 assert present
+present = ' '.join(['python-%s' % pkg.lower() for pkg in present.split() \
+                    if pkg not in ('repoze.who.plugins.openid',
+                                   'repoze.who-friendlyform')] + \
+                   ['python-repoze.who-plugins'])
 missing = b.run('Assemble list of missing packages',
              r"sed -n 's/.*#egg=\(.*\)/\1/p;' python-ckan/src/ckan/requires/lucid_missing.txt | sed ':a;N;$!ba; s/\n/ /g'",
              is_verbose=False)
 assert missing
-other_deps = 'python-ckan-deps '
+missing = ' '.join(['python-%s' % pkg.lower() for pkg in missing.split()])
+other_deps = 'python-ckan-deps'
 ckan_deps = ' '.join((present, missing, other_deps))
 
 b.run('python-ckan - create deb package',
@@ -90,4 +95,12 @@ b.run('ckan-dgu - put version number in the control file',
 
 b.run('ckan-dgu - create deb package',
       'cd ckan-debs-public/ckan-dgu; dpkg-deb -b . ..')
+
+b.env['ckan_debs_build_number'] = b.get_build_number('ckan-debs-public')
+
+b.run('ckan-common - put version number in the control file',
+      r"sed -e 's/Version: .*/Version: 0.1~%(ckan_debs_build_number)s/g' -i ckan-debs-public/ckan-common/DEBIAN/control")
+
+b.run('ckan-common - create deb package',
+      'cd ckan-debs-public/ckan-common; dpkg-deb -b . ..')
 
