@@ -11,6 +11,15 @@ build_dir='/home/buildslave/deb/build'
 #ckan_repo='https://bitbucket.org/okfn/ckan'
 #ckan_repo_files=ckan_repo + '/raw'
 
+vm_dir = '~/Vms'
+base_vm_filepath = os.path.expandvars('~/Vms/ckan_4/tmpbfoGvb.qcow2')
+vm_eth = 'eth0'
+vm_qtap = 'qtap0'
+vm_processors = 1
+vm_ip = '192.168.100.4'
+vm_user = 'ubuntu'
+vm_password = 'ubuntu'
+
 class DebBuilder(Builder):
     def get_build_number(self, repo_path):
         repo = hg.repository(ui.ui(), repo_path)
@@ -25,6 +34,14 @@ builder = DebBuilder(
 #                      src_dir=src_dir,
 #                      ckan_repo=ckan_repo,
 #                      ckan_repo_files=ckan_repo_files,
+                       vm_dir=vm_dir,
+                       base_vm_filepath=base_vm_filepath,
+                       vm_eth=vm_eth,
+                       vm_qtap=vm_qtap,
+                       vm_processors=vm_processors,
+                       vm_ip=vm_ip,
+                       vm_user=vm_user,
+                       vm_password=vm_password,
                       )
 
 cwd = os.getcwd()
