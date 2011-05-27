@@ -18,9 +18,8 @@ b.run('Running fabfile...',
 
 b.assert_ckan_branch()
 
-# Doesn't work - problem with subversion repo format.
-#b.run('Versions of code...',
-#      'pip -E %(pyenv_dir)s freeze')
+b.run('Installing test dependencies...',
+      'pip -E %(pyenv_dir)s install -r %(src_dir)s/ckan/pip-requirements-test.txt')
 
 b.run('Copying config for running nosetests...',
       'cp %(build_dir)s/%(ckan_instance_name)s/%(ckan_instance_name)s.ini %(src_dir)s/ckan/development.ini')
