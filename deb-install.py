@@ -16,6 +16,9 @@ b.run('Start vm',
 b.run('Setup vm',
       'fab -f ~/vm-fabfile.py -H %(vm_user)s@%(vm_ip)s -p %(vm_password)s setup_vm')
 
+#b.run('Copy vm pre-ckan',
+#      'rsync %(vm_dir)s/test.vm %(vm_dir)s/test-preckan.vm')
+
 b.run('Install CKAN',
       'fab -f ~/vm-fabfile.py -H %(vm_user)s@%(vm_ip)s -p %(vm_password)s install_ckan')
 
