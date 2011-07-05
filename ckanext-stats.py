@@ -11,8 +11,8 @@ b.run('Install ckanext-%(extension_name)s',
 #      'pip -E %(pyenv_dir)s install -r %(pyenv_dir)s/src/ckanext-%(extension_name)s/pip-requirements.txt')
 
 b.run('Quick tests',
-      '. %(pyenv_dir)s/bin/activate; %(pyenv_dir)s/bin/nosetests -v %(src_dir)s/ckanext-%(extension_name)s/ckanext/%(extension_name)s/tests/ --ckan --with-pylons=%(src_dir)s/ckan/test.ini')
+      '. %(pyenv_dir)s/bin/activate; %(pyenv_dir)s/bin/nosetests -v %(src_dir)s/ckanext-%(extension_name)s/ckanext/%(extension_name)s/tests/ --ckan --with-pylons=%(src_dir)s/ckanext-stats/test.ini')
 
 b.run('Full tests',
-      '. %(pyenv_dir)s/bin/activate; %(pyenv_dir)s/bin/nosetests -v %(src_dir)s/ckanext-%(extension_name)s/ckanext/%(extension_name)s/tests/ --ckan --with-pylons=%(src_dir)s/ckan/test-core.ini')
+      '. %(pyenv_dir)s/bin/activate; %(pyenv_dir)s/bin/nosetests -v %(src_dir)s/ckanext-%(extension_name)s/ckanext/%(extension_name)s/tests/ --ckan --with-pylons=%(src_dir)s/ckanext-stats/test-core.ini')
 
