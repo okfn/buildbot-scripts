@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 
-from mercurial import ui, hg
+#from mercurial import ui, hg
 
 from builder import Builder
 
@@ -11,7 +11,7 @@ ckan_instance_name='ckan1' # can't call it 'ckan' as it gives problems
 build_dir='/home/buildslave/ckan/build'
 pyenv_dir=os.path.join(build_dir, ckan_instance_name, 'pyenv')
 src_dir=os.path.join(pyenv_dir, 'src')
-ckan_repo='https://bitbucket.org/okfn/ckan'
+ckan_repo='https://github.com/okfn/ckan'
 ckan_repo_files=ckan_repo + '/raw'
 
 class CkanBuilder(Builder):

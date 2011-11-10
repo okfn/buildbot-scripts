@@ -11,7 +11,7 @@ b.run('Emptying build folder',
       'rm -rf %(build_dir)s/*')
 
 b.run('Getting fabfile',
-      'wget -O fabfile.py %(ckan_repo)s/raw/default/fabfile.py')
+      'wget -O fabfile.py %(ckan_repo_files)s/master/fabfile.py')
 
 b.run('Install CKAN with fabfile',
       'fab config_local:%(build_dir)s,%(ckan_instance_name)s,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True,revision=%(revision)s deploy')

@@ -10,13 +10,14 @@ assert b.env['build_dir'].startswith('/home/buildslave/ckan/build') # double che
 b.run('Emptying build folder...',
       'rm -rf %(build_dir)s/*')
 
+# get https://github.com/okfn/ckan/raw/master/fabfile.py
 b.run('Getting fabfile from...',
-      'wget -O fabfile.py %(ckan_repo_files)s/default/fabfile.py')
+      'wget -O fabfile.py %(ckan_repo_files)s/master/fabfile.py')
 
 b.run('Running fabfile...',
       'fab config_local:%(build_dir)s,%(ckan_instance_name)s,db_host=localhost,db_pass=biomaik15,no_sudo=True,skip_setup_db=True,revision=%(revision)s deploy')
 
-b.assert_ckan_branch()
+#b.assert_ckan_branch()
 
 b.run('Installing test dependencies...',
       'pip -E %(pyenv_dir)s install -r %(src_dir)s/ckan/pip-requirements-test.txt')
