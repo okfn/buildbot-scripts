@@ -3,7 +3,7 @@
 from builder_ckanext import builder as b
 
 b.run('Remove potential conflicts',
-      'rm -rf %(pyenv_dir)s/src/ckanext-* %(pyenv_dir)s/src/ckanclient %(pyenv_dir)s/src/datautil %(pyenv_dir)s/src/owslib %(pyenv_dir)s/src/apachemiddleware %(pyenv_dir)s/lib/python2.6/site-packages/ckanclient*')
+      'rm -rf %(pyenv_dir)s/src/ckanext-* %(pyenv_dir)s/src/ckanclient %(pyenv_dir)s/src/datautil-date %(pyenv_dir)s/src/owslib %(pyenv_dir)s/src/apachemiddleware %(pyenv_dir)s/lib/python2.6/site-packages/ckanclient*')
 
 b.run('Install ckanext-dgu',
       'pip -E %(pyenv_dir)s install -e hg+http://bitbucket.org/okfn/ckanext-dgu#egg=ckanext-dgu')
