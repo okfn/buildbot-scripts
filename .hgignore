@@ -20,3 +20,6 @@ pyenv-tools/*
 twistd.*
 pip-log.txt
 Vms
+dumps/*
+dumps_gz/*
+deb/*
