@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from builder_ckan import builder as b
-b.env['revision'] = 'default'
+b.env['revision'] = 'master'
 
 b.run('Emptying database...', 
       '/home/buildslave/drop-all-tables.sh %(ckan_instance_name)s buildslave localhost')
