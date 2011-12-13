@@ -6,7 +6,7 @@ b.run('Remove potential conflicts',
       'rm -rf %(pyenv_dir)s/src/datautildate')
 
 b.run('Install datautildate',
-      'pip -E %(pyenv_dir)s install -e hg+https://okfn@bitbucket.org/okfn/datautildate#egg=datautildate')
+      'pip -E %(pyenv_dir)s install -e git+https://okfn@github.com/okfn/datautildate#egg=datautildate')
 
 b.run('Install datautildate test deps manually',
       'pip -E %(pyenv_dir)s install nose xlrd gdata')
