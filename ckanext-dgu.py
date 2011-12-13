@@ -6,7 +6,7 @@ b.run('Remove potential conflicts',
       'rm -rf %(pyenv_dir)s/src/ckanext-* %(pyenv_dir)s/src/ckanclient %(pyenv_dir)s/src/datautildate %(pyenv_dir)s/src/owslib %(pyenv_dir)s/src/apachemiddleware %(pyenv_dir)s/lib/python2.6/site-packages/ckanclient*')
 
 b.run('Install ckanext-dgu',
-      'pip -E %(pyenv_dir)s install -e hg+http://bitbucket.org/okfn/ckanext-dgu#egg=ckanext-dgu')
+      'pip -E %(pyenv_dir)s install -e git+http://github.com/okfn/ckanext-dgu#egg=ckanext-dgu')
 
 b.run('Install latest ckanext-dgu dependencies',
       'pip -E %(pyenv_dir)s install -r %(pyenv_dir)s/src/ckanext-dgu/pip-requirements-latest.txt')

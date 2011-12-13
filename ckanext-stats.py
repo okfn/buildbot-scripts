@@ -5,7 +5,7 @@ b.env['revision'] = 'default'
 b.env['extension_name'] = 'stats'
 
 b.run('Install ckanext-%(extension_name)s',
-      'pip -E %(pyenv_dir)s install -e hg+http://bitbucket.org/okfn/ckanext-%(extension_name)s#egg=ckanext-%(extension_name)s')
+      'pip -E %(pyenv_dir)s install -e git+http://github.com/okfn/ckanext-%(extension_name)s#egg=ckanext-%(extension_name)s')
 
 #b.run('Install dependencies',
 #      'pip -E %(pyenv_dir)s install -r %(pyenv_dir)s/src/ckanext-%(extension_name)s/pip-requirements.txt')
