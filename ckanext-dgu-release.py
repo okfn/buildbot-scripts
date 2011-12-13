@@ -13,7 +13,7 @@ b.run('Create pyenv',
       'virtualenv %(pyenv_dir)s')
 
 b.run('Install ckanext-dgu',
-      '%(pyenv_dir)s/bin/pip -E %(pyenv_dir)s install -e hg+http://bitbucket.org/okfn/ckanext-dgu#egg=ckanext-dgu')
+      '%(pyenv_dir)s/bin/pip -E %(pyenv_dir)s install -e git+http://github.com/okfn/ckanext-dgu#egg=ckanext-dgu')
 
 b.run('Install ckanext-dgu dependencies',
       '%(pyenv_dir)s/bin/pip -E %(pyenv_dir)s install -r %(pyenv_dir)s/src/ckanext-dgu/requires/lucid_missing.txt')

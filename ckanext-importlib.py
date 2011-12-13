@@ -20,7 +20,7 @@ b.run('Copying config for running nosetests',
       'cp %(build_dir)s/%(ckan_instance_name)s/%(ckan_instance_name)s.ini %(src_dir)s/ckan/development.ini')
 
 b.run('Install ckanext-importlib',
-      'pip -E %(pyenv_dir)s install -e hg+http://bitbucket.org/okfn/ckanext-importlib#egg=ckanext-importlib')
+      'pip -E %(pyenv_dir)s install -e git+http://github.com/okfn/ckanext-importlib#egg=ckanext-importlib')
 
 b.run('Install ckanext-importlib dependencies',
       'pip -E %(pyenv_dir)s install -r %(pyenv_dir)s/src/ckanext-importlib/pip-requirements.txt')
